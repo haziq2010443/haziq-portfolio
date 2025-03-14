@@ -71,7 +71,9 @@ export default function Navbar () {
                             </a>
                         </div>
                     </div>
-                    <button className="md:hidden p-2 rounded-lg bg-white/5 hover:bg-primary/10 transition">
+                    <button 
+                    onClick={()=> setIsMenuOpen(!isMenuOpen)}
+                    className="md:hidden p-2 rounded-lg bg-white/5 hover:bg-primary/10 transition">
                         {isMenuOpen ? (
                             <XMarkIcon className="h-6 w-6 text-content/80"/>
                         ) : (
@@ -79,6 +81,40 @@ export default function Navbar () {
                         )}
                     </button>
                 </div>
+                {isMenuOpen && (
+                    <motion.div
+                    initial={{opacity:0, y:-10}}
+                    animate={{opacity:1, y:0}}
+                    className="md:hidden mt-4 pb-4 space-y-4"
+                    >
+                        {
+                            navItems.map((item, i) => (
+                                <a
+                                key={item.name}
+                                href={item.href}
+                                onClick={()=> setIsMenuOpen(false)}
+                                className="block px-4 py-2 text-content/80 hover:text-primary hover:bg-white/5 rounded-lg transition-colors"
+                                >
+                                    {item.name}
+                                </a>
+                            )
+                        )}
+                        <div className="pt-4 border-t border-white/5 flex gap-4">
+                            <a className="p-2 rounded-lg bg-white/5 hover:bg-primary/10 transition-colors group" href={socialLinks.github}>
+                                <GithubIcon 
+                                className="h-5 w-5 text-content/80 group-hover:text-primary transition-colors"/>
+                            </a>
+                            <a className="p-2 rounded-lg bg-white/5 hover:bg-primary/10 transition-colors group" href={socialLinks.linkedin}>
+                                <LinkedInIcon 
+                                className="h-5 w-5 text-content/80 group-hover:text-primary transition-colors"/>
+                            </a>
+                            <a className="p-2 rounded-lg bg-white/5 hover:bg-primary/10 transition-colors group" href={socialLinks.instagram}>
+                                <InstagramIcon 
+                                className="h-5 w-5 text-content/80 group-hover:text-primary transition-colors"/>
+                            </a>
+                        </div>
+                    </motion.div>
+                )}
             </div>
         </motion.nav>
     );
